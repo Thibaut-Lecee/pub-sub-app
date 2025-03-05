@@ -16,7 +16,9 @@ name: Deploy API to AKS
 
 on:
   push:
-    branches: ["feat/*"]
+    branches:
+      - maalsi24
+      - feat/*
     paths:
       - "kubernetes/api"
       - "RabbitMqProductAPI"
