@@ -17,8 +17,6 @@ name: Docker Build & Push API
 on:
   push:
     branches: ["maalsi24", "**"]
-    paths:
-      - "RabbitMqProductAPI/**"
   workflow_dispatch:
 
 env:
