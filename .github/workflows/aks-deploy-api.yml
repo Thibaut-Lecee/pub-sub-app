@@ -16,19 +16,13 @@ name: Deploy API to AKS
 
 on:
   push:
-    branches:
-      - develop
-      - maalsi24
-      - feat/*
-    paths:
-      - "kubernetes/api"
-      - "RabbitMqProductAPI"
+    branches: ["maalsi24"]
   workflow_dispatch:
 
 env:
-  RESOURCE_GROUP: ${{ secrets.AKS_RESOURCE_GROUP }}
-  CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}
-  NAMESPACE_NAME: ${{ secrets.APP_NAMESPACE }}
+  RESOURCE_GROUP: ${{ secrets.CICD.AKS_RESOURCE_GROUP }}
+  CLUSTER_NAME: ${{ secrets.CICD.AKS_CLUSTER_NAME }}
+  NAMESPACE_NAME: ${{ secrets.CICD.APP_NAMESPACE }}
   DEPLOYMENT_NAME: "api"
 
 jobs:
@@ -45,16 +39,8 @@ jobs:
       - name: Azure Login action
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.CICD.AZURE_CREDENTIALS }}
           enable-AzPSSession: true
-
-      - name: Azure CLI script
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az group show --name ${{ secrets.AKS_RESOURCE_GROUP }}
-            # You can write your Azure CLI inline scripts here.
 
       # Use kubelogin to configure your kubeconfig for Azure auth
       - name: Set up kubelogin for non-interactive login
@@ -80,12 +66,6 @@ jobs:
       - name: Deploy secrets to AKS
         run: |
           cd kubernetes/global/secrets
-          kubectl apply -k ./overlays/demo -n ${{ env.NAMESPACE_NAME }}
-
-      # Deploys global configMap based on given manifest file
-      - name: Deploy global configMap to AKS
-        run: |
-          cd kubernetes/global/configmap
           kubectl apply -k ./overlays/demo -n ${{ env.NAMESPACE_NAME }}
 
       # Deploys application based on given manifest file
