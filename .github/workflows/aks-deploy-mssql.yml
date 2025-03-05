@@ -16,7 +16,7 @@ name: Deploy MSSQL to AKS
 
 on:
   push:
-    branches: ["**"]
+    branches: ["maalsi24", "**"]
     paths:
       - "kubernetes/mssql/**"
   workflow_dispatch:

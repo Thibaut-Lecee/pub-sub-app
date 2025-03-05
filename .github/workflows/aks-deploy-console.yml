@@ -16,7 +16,7 @@ name: Deploy console to AKS
 
 on:
   push:
-    branches: ["**"]
+    branches: ["maalsi24", "**"]
     paths:
       - "kubernetes/console/**"
       - "RabbitMqProduct.ConsoleApplication/**"

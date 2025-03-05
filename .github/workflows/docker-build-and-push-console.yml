@@ -16,7 +16,7 @@ name: Docker Build & Push Console
 
 on:
   push:
-    branches: ["**"]
+    branches: ["maalsi24", "**"]
     paths:
       - "RabbitMQProduct.ConsoleApplication/**"
   workflow_dispatch:
@@ -28,6 +28,7 @@ env:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    environment: CICD
     steps:
       # Checks out the repository this file is in
       - uses: actions/checkout@v3
