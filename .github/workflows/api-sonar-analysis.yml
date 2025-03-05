@@ -64,7 +64,7 @@ jobs:
           dotnet-version: ${{env.DOTNET_VERSION}}
 
       - name: Run tests
-        working-directory: ${{env.PROJECT_FOLDER}}
+        working-directory: ${{env.PROJECT_TEST_FOLDER}}
         run: dotnet test --configuration Release
 
   sonar:
