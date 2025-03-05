@@ -11,7 +11,7 @@
 #   - AZURE_TENANT_ID => se récupère avec la commande az account list => tenantId
 #   - AZURE_SUBSCRIPTION_ID => l'ID se récupère dans l'overview de l'Abonnement
 # 4. Tester la Github Actions
-# mid-folabs-formation
+# Entité managé mid-folabs-formation
 
 name: Deploy API to AKS
 
