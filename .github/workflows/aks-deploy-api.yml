@@ -18,7 +18,7 @@ on:
   push:
     branches:
       - maalsi24
-      - feat/*
+      - feat/CICD
     paths:
       - "kubernetes/api"
       - "RabbitMqProductAPI"
