@@ -73,14 +73,13 @@ jobs:
           # Disabling shallow clones is recommended for improving the relevancy of reporting
           fetch-depth: 0
 
-          # Pas besoin de cette partie car automatique avec sonar cloud
-#      - name: SonarQube Scan
-#        uses: SonarSource/sonarqube-scan-action@v4
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          SONAR_HOST_URL: "https://sonarcloud.io"
-#        with:
-#          projectBaseDir: .
-#          args: >
-#           -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-#            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: "https://sonarcloud.io"
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
