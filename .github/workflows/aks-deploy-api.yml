@@ -11,13 +11,13 @@
 #   - AZURE_TENANT_ID => se récupère avec la commande az account list => tenantId
 #   - AZURE_SUBSCRIPTION_ID => l'ID se récupère dans l'overview de l'Abonnement
 # 4. Tester la Github Actions
-
+# mid-folabs-formation
 
 name: Deploy API to AKS
 
 on:
   push:
-    branches: ["main"]
+    branches: ["maalsi24", "feat/*"]
   workflow_dispatch:
 
 env:
@@ -48,7 +48,7 @@ jobs:
       - name: Set up kubelogin for non-interactive login
         uses: azure/use-kubelogin@v1
         with:
-          kubelogin-version: 'v0.0.25'
+          kubelogin-version: "v0.0.25"
 
       # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
       - name: Get K8s context
@@ -56,18 +56,18 @@ jobs:
         with:
           resource-group: ${{ env.RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
-          admin: 'false'
-          use-kubelogin: 'true'
+          admin: "false"
+          use-kubelogin: "true"
 
       # Create Kubernetes namespace if not exists
       - name: Create namespace
         run: |
           kubectl create namespace ${{ env.NAMESPACE_NAME }} --dry-run=client -o yaml | kubectl apply -f -
-      
+
       # Deploys secrets based on given manifest file
       - name: Deploy secrets to AKS
         run: |
-          cd kubernetes/keyvault
+          cd kubernetes/global/secrets
           kubectl apply -k ./overlays/demo -n ${{ env.NAMESPACE_NAME }}
 
       # Deploys application based on given manifest file

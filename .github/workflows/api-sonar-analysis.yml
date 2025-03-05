@@ -25,9 +25,11 @@ on:
   push:
     branches:
       - develop
+      - feat/*
   pull_request:
     branches:
       - develop
+      - feat/*
   workflow_dispatch:
 
 jobs:
@@ -45,7 +47,7 @@ jobs:
       - name: Build with dotnet
         working-directory: ${{env.PROJECT_FOLDER}}
         run: dotnet build --configuration Release
-  
+
   tests:
     runs-on: ubuntu-latest
 
@@ -66,7 +68,7 @@ jobs:
     environment:
       name: "Azure"
 
-    steps:      
+    steps:
       - uses: actions/checkout@v4
         with:
           # Disabling shallow clones is recommended for improving the relevancy of reporting
