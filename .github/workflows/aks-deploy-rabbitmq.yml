@@ -16,7 +16,7 @@ name: Deploy RabbitMQ to AKS
 
 on:
   push:
-    branches: ["maalsi24"]
+    branches: ["**"]
     paths:
       - "kubernetes/rabbitmq/**"
   workflow_dispatch:

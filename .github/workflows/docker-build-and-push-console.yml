@@ -16,7 +16,7 @@ name: Docker Build & Push Console
 
 on:
   push:
-    branches: ["maalsi24"]
+    branches: ["**"]
     paths:
       - "RabbitMQProduct.ConsoleApplication/**"
   workflow_dispatch:
