@@ -24,13 +24,9 @@ env:
 
 on:
   push:
-    branches:
-      - develop
-      - feat/*
+    branches: ["maalsi24", "**"]
   pull_request:
-    branches:
-      - develop
-      - feat/*
+    branches: ["maalsi24", "**"]
   workflow_dispatch:
 
 jobs:
