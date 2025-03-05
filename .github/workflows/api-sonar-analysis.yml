@@ -21,6 +21,7 @@ env:
   PROJECT_TEST_FOLDER: "RabbitMqProductAPI.Tests"
   PROJECT_NAME: "RabbitMqProductAPI"
   DOTNET_VERSION: "9.x"
+  DOTNET_SOLUTION_PATH: RabbitMqProductAPI.sln
 
 on:
   push:
@@ -32,6 +33,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: "CICD"
     steps:
       - uses: actions/checkout@v4
 
@@ -62,6 +65,19 @@ jobs:
       - name: Run tests
         working-directory: ${{env.PROJECT_TEST_FOLDER}}
         run: dotnet test --configuration Release
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+      - name: Restore dependencies
+        working-directory: ${{env.DOTNET_SOLUTION_PATH}}
+        run: dotnet restore
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/dotnet@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   sonar:
     runs-on: ubuntu-latest
