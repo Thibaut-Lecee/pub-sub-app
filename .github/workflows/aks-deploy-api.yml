@@ -21,7 +21,6 @@ on:
       - "kubernetes/api"
       - "RabbitMqProductAPI"
   workflow_dispatch:
-
 env:
   RESOURCE_GROUP: ${{ secrets.AKS_RESOURCE_GROUP }}
   CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}
