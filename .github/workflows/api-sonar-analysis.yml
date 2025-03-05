@@ -35,7 +35,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -66,7 +65,7 @@ jobs:
   sonar:
     runs-on: ubuntu-latest
     environment:
-      name: "Azure"
+      name: "CICD"
 
     steps:
       - uses: actions/checkout@v4
@@ -77,10 +76,10 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
-          SONAR_TOKEN: ${{ secrets.CICD.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: "https://sonarcloud.io"
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.organization=${{ secrets.CICD.SONAR_ORGANIZATION }}
-            -Dsonar.projectKey=${{ secrets.CICD.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
