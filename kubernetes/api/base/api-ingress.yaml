@@ -6,13 +6,13 @@ metadata:
     kubernetes.io/ingress.class: azure/application-gateway
 spec:
   rules:
-  - host: ""
-    http:
-      paths:
-      - pathType: Prefix
-        path: /api/Product/productlist
-        backend:
-          service:
-            name: api
-            port:
-              number: 80
+    - host: ""
+      http:
+        paths:
+          - pathType: Prefix
+            path: /api/Product/productlist
+            backend:
+              service:
+                name: api
+                port:
+                  number: 8080
