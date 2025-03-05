@@ -20,9 +20,9 @@ on:
   workflow_dispatch:
 
 env:
-  RESOURCE_GROUP: ${{ secrets.CICD.AKS_RESOURCE_GROUP }}
-  CLUSTER_NAME: ${{ secrets.CICD.AKS_CLUSTER_NAME }}
-  NAMESPACE_NAME: ${{ secrets.CICD.APP_NAMESPACE }}
+  RESOURCE_GROUP: ${{ secrets.AKS_RESOURCE_GROUP }}
+  CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}
+  NAMESPACE_NAME: ${{ secrets.APP_NAMESPACE }}
   DEPLOYMENT_NAME: "api"
 
 jobs:
@@ -31,6 +31,7 @@ jobs:
       contents: read
       id-token: write
     runs-on: ubuntu-latest
+    environment: CICD
     steps:
       # Checks out the repository this file is in
       - uses: actions/checkout@v3
@@ -39,9 +40,23 @@ jobs:
       - name: Azure Login action
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.CICD.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true
+      - name: Debug environment variables
+        run: env | sort
 
+      - name: Test Azure Connection
+        run: |
+          az account show
+          az group show --name ${{ secrets.AKS_RESOURCE_GROUP }}
+
+      - name: Test Azure Authentication
+        run: |
+          az ad signed-in-user show
+
+      - name: Test Kubernetes connection
+        run: |
+          kubectl get nodes
       # Use kubelogin to configure your kubeconfig for Azure auth
       - name: Set up kubelogin for non-interactive login
         uses: azure/use-kubelogin@v1
