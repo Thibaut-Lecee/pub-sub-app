@@ -16,11 +16,15 @@ name: Deploy API to AKS
 
 on:
   push:
-    branches: ["maalsi24", "feat/CICD"]
+    branches:
+      - develop
+      - maalsi24
+      - feat/*
     paths:
       - "kubernetes/api"
       - "RabbitMqProductAPI"
   workflow_dispatch:
+
 env:
   RESOURCE_GROUP: ${{ secrets.AKS_RESOURCE_GROUP }}
   CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}
@@ -44,21 +48,13 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true
 
-      - name: Debug environment variables
-        run: env | sort
-
-      - name: Test Azure Connection
-        run: |
-          az account show
-          az group show --name ${{ secrets.AKS_RESOURCE_GROUP }}
-
-      - name: Test Azure Authentication
-        run: |
-          az ad signed-in-user show
-
-      - name: Test Kubernetes connection
-        run: |
-          kubectl get nodes
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az group show --name ${{ secrets.AKS_RESOURCE_GROUP }}
+            # You can write your Azure CLI inline scripts here.
 
       # Use kubelogin to configure your kubeconfig for Azure auth
       - name: Set up kubelogin for non-interactive login
