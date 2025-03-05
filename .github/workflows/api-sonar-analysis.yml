@@ -18,6 +18,7 @@ name: Sonar Analysis
 
 env:
   PROJECT_FOLDER: "RabbitMqProductAPI"
+  PROJECT_TEST_FOLDER: "RabbitMqProductAPI.Tests"
   PROJECT_NAME: "RabbitMqProductAPI"
   DOTNET_VERSION: "9.x"
 
@@ -46,6 +47,10 @@ jobs:
       - name: Build with dotnet
         working-directory: ${{env.PROJECT_FOLDER}}
         run: dotnet build --configuration Release
+
+      - name: Test with dotnet
+        working-directory: ${{env.PROJECT_TEST_FOLDER}}
+        run: dotnet test --configuration Release
 
   tests:
     runs-on: ubuntu-latest

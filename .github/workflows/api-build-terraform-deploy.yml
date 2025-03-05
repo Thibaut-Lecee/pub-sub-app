@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: "CICD"
+      name: CICD
     env:
       #These environment variables are used by the terraform azure provider to setup OIDC authentication.
       ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
