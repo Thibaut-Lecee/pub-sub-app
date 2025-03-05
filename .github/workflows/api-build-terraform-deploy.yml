@@ -152,7 +152,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, terraform]
     environment:
-      name: "Azure"
+      name: "CICD"
 
     steps:
       - name: Download Terraform Outputs

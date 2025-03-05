@@ -20,9 +20,9 @@ on:
   workflow_dispatch:
 
 env:
-  RESOURCE_GROUP: ${{ secrets.CICD.AKS_RESOURCE_GROUP }}
-  CLUSTER_NAME: ${{ secrets.CICD.AKS_CLUSTER_NAME }}
-  NAMESPACE_NAME: ${{ secrets.CICD.APP_NAMESPACE }}
+  RESOURCE_GROUP: ${{ secrets.AKS_RESOURCE_GROUP }}
+  CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}
+  NAMESPACE_NAME: ${{ secrets.APP_NAMESPACE }}
   DEPLOYMENT_NAME: "api"
 
 jobs:
