@@ -73,14 +73,19 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{env.DOTNET_VERSION}}
-      - name: Check .NET version
-        run: dotnet --version
+      - name: Clean
+        run: dotnet clean ./${{env.DOTNET_SOLUTION_PATH}} --configuration Release && dotnet nuget locals all --clear
       - name: Restore dependencies
-        run: dotnet restore ./${{env.DOTNET_SOLUTION_PATH}}
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
+        continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif --file=./${{env.DOTNET_SOLUTION_PATH}} --severity-threshold=medium
 
   sonar:
     runs-on: ubuntu-latest
