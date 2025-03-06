@@ -72,7 +72,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
       - name: Restore dependencies
-        run: dotnet restore ./${{env.DOTNET_SOLUTION_PATH}} -configuration Release
+        run: dotnet restore ./${{env.DOTNET_SOLUTION_PATH}}
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
         env:
