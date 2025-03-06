@@ -17,6 +17,9 @@ name: Docker Build & Push Console
 on:
   push:
     branches: ["maalsi24", "feat/CICD"]
+    paths:
+      - "kubernetes/console/**"
+      - "RabbitMQProduct.ConsoleApplication/**"
   workflow_dispatch:
 
 env:
