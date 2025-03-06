@@ -67,6 +67,8 @@ jobs:
         run: dotnet test --configuration Release
   security:
     runs-on: ubuntu-latest
+    environment:
+      name: "CICD"
     steps:
       - uses: actions/checkout@master
       - name: Setup .NET
