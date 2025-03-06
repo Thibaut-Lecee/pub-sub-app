@@ -71,6 +71,10 @@ jobs:
       - uses: actions/checkout@master
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{env.DOTNET_VERSION}}
+      - name: Check .NET version
+        run: dotnet --version
       - name: Restore dependencies
         run: dotnet restore ./${{env.DOTNET_SOLUTION_PATH}}
       - name: Run Snyk to check for vulnerabilities
